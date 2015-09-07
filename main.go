@@ -53,7 +53,6 @@ func main() {
 		user := fmt.Sprintf("fake_user_%d", o)
 		pass := fmt.Sprintf("fake_pass_%d", o)
 		mail := fmt.Sprintf("fake_user_%d@example.org", o)
-		org := fmt.Sprintf("fake_org_%d", o)
 		settings := dtos.AdminCreateUserForm{
 			Email:    mail,
 			Login:    user,
@@ -69,15 +68,10 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(">> creating org", org)
-		if err = subClient.NewOrg(org); err != nil {
-			log.Fatal(err)
-		}
 		for e := 1; e <= 4; e++ {
 			settings := m.AddEndpointCommand{
-				OrgId: 10,
-				Name:  fmt.Sprintf("fake_org_%d_endpoint_%d", o, e),
-				Tags:  make([]string, 0),
+				Name: fmt.Sprintf("fake_org_%d_endpoint_%d", o, e),
+				Tags: make([]string, 0),
 				Monitors: []*m.AddMonitorCommand{
 					pingMonitor(collectorIds, (o%10)+1, e, *email),
 					dnsMonitor(collectorIds, (o%10)+1, e, *email),
