@@ -62,7 +62,7 @@ func dnsMonitor(collectorIds []int64, collectors, steps int, email string) *m.Ad
 			&m.MonitorSettingDTO{Variable: "protocol", Value: "udp"},
 		},
 		HealthSettings: healthSettings(collectors, steps, email),
-		Frequency:      60,
+		Frequency:      10,
 		Enabled:        true,
 	}
 }
