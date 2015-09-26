@@ -12,7 +12,7 @@ import (
 func load(client *gapi.Client) {
 
 	log.Println("getting list of collectors to use")
-	collectors, err := client.Collectors()
+	collectors, err := client.Collectors(m.GetCollectorsQuery{Public: "true"})
 	if err != nil {
 		log.Fatal(err)
 	}
