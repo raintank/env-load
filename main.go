@@ -39,8 +39,9 @@ func main() {
 		load(client)
 	case "clean":
 		clean(client)
+	case "status":
+		status(client)
 	default:
 		log.Fatalf("no such operation %q", op)
 	}
-
 }
