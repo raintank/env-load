@@ -15,7 +15,7 @@ func healthSettings(collectors, steps int, email string) *m.MonitorHealthSetting
 
 func httpMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
-		EndpointId:    0,
+		EndpointId:    1,
 		MonitorTypeId: 1,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
@@ -35,7 +35,7 @@ func httpMonitor(collectorIds []int64, collectors, steps int, email string) *m.A
 
 func pingMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
-		EndpointId:    0,
+		EndpointId:    1,
 		MonitorTypeId: 3,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
@@ -50,7 +50,7 @@ func pingMonitor(collectorIds []int64, collectors, steps int, email string) *m.A
 
 func dnsMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
-		EndpointId:    0,
+		EndpointId:    1,
 		MonitorTypeId: 4,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
