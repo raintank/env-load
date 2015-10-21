@@ -20,6 +20,13 @@ func load(client *gapi.Client, mail string) {
 	for _, coll := range collectors {
 		collectorIds = append(collectorIds, int64(coll.Id))
 	}
+	alertCollErrors := len(collectorIds)
+	// for alerting, never ask to be alerted if num coll are erroring if num is more than the actual number of collectors in the footprint
+	// see also https://github.com/raintank/grafana/issues/480
+	// the value used will cycle between 0 and this, so that we can see different stages of endpoints erroring
+	if alertCollErrors > 10 {
+		alertCollErrors = 10
+	}
 
 	for o := 1; o <= *orgs; o++ {
 		user := fmt.Sprintf("fake_user_%d", o)
@@ -39,14 +46,18 @@ func load(client *gapi.Client, mail string) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		numCollErrors := 1
+		if alertCollErrors >= 2 {
+			numCollErrors = (o % alertCollErrors) + 1
+		}
 		for e := 1; e <= 4; e++ {
 			settings := m.AddEndpointCommand{
 				Name: fmt.Sprintf("fake_org_%d_endpoint_%d", o, e),
 				Tags: make([]string, 0),
 				Monitors: []*m.AddMonitorCommand{
-					pingMonitor(collectorIds, (o%10)+1, e, *email),
-					dnsMonitor(collectorIds, (o%10)+1, e, *email),
-					httpMonitor(collectorIds, (o%10)+1, e, *email),
+					pingMonitor(collectorIds, numCollErrors, e, *email),
+					dnsMonitor(collectorIds, numCollErrors, e, *email),
+					httpMonitor(collectorIds, numCollErrors, e, *email),
 				},
 			}
 			fmt.Println(">> creating endpoint", settings.Name)
