@@ -8,7 +8,7 @@ import (
 )
 
 var orgs = flag.Int("orgs", 100, "number of orgs to create")
-var email = flag.String("email", "", "who will get alerting emails")
+var email = flag.String("email", "", "email addresses for alerting emails. empty means notifications disabled")
 var host = flag.String("host", "http://localhost/", "https://which.raintank.instance/")
 var auth = flag.String("auth", "", "authentication string. either 'user:pass' or 'apikey'")
 
@@ -36,7 +36,7 @@ func main() {
 		if *orgs <= 0 {
 			log.Fatal("number of orgs must >= 1")
 		}
-		load(client)
+		load(client, *email)
 	case "clean":
 		clean(client)
 	case "status":

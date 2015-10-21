@@ -9,7 +9,7 @@ import (
 	m "github.com/grafana/grafana/pkg/models"
 )
 
-func load(client *gapi.Client) {
+func load(client *gapi.Client, mail string) {
 
 	log.Println("getting list of collectors to use")
 	collectors, err := client.Collectors(m.GetCollectorsQuery{Public: "true"})
@@ -24,7 +24,6 @@ func load(client *gapi.Client) {
 	for o := 1; o <= *orgs; o++ {
 		user := fmt.Sprintf("fake_user_%d", o)
 		pass := fmt.Sprintf("fake_pass_%d", o)
-		mail := fmt.Sprintf("fake_user_%d@example.org", o)
 		settings := dtos.AdminCreateUserForm{
 			Email:    mail,
 			Login:    user,

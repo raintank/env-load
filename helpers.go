@@ -3,14 +3,18 @@ package main
 import m "github.com/grafana/grafana/pkg/models"
 
 func healthSettings(collectors, steps int, email string) *m.MonitorHealthSettingDTO {
-	return &m.MonitorHealthSettingDTO{
+	hs := &m.MonitorHealthSettingDTO{
 		NumCollectors: collectors,
 		Steps:         steps,
 		Notifications: m.MonitorNotificationSetting{
-			Enabled:   true,
+			Enabled:   false,
 			Addresses: email,
 		},
 	}
+	if email != "" {
+		hs.Notifications.Enabled = true
+	}
+	return hs
 }
 
 func httpMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
