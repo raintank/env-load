@@ -55,9 +55,9 @@ func load(client *gapi.Client, mail string) {
 				Name: fmt.Sprintf("fake_org_%d_endpoint_%d", o, e),
 				Tags: make([]string, 0),
 				Monitors: []*m.AddMonitorCommand{
-					pingMonitor(collectorIds, numCollErrors, e, *email),
-					dnsMonitor(collectorIds, numCollErrors, e, *email),
-					httpMonitor(collectorIds, numCollErrors, e, *email),
+					pingMonitor(collectorIds, numCollErrors, e, *monHost, *email),
+					dnsMonitor(collectorIds, numCollErrors, e, *monHost, *email),
+					httpMonitor(collectorIds, numCollErrors, e, *monHost, *email),
 				},
 			}
 			fmt.Println(">> creating endpoint", settings.Name)

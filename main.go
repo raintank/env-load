@@ -10,6 +10,7 @@ import (
 var orgs = flag.Int("orgs", 100, "number of orgs to create")
 var email = flag.String("email", "", "email addresses for alerting emails. empty means notifications disabled")
 var host = flag.String("host", "http://localhost/", "https://which.raintank.instance/")
+var monHost = flag.String("monhost", "localhost", "which hostname to monitor")
 var auth = flag.String("auth", "admin:admin", "authentication string. either 'user:pass' or 'apikey'")
 
 func main() {

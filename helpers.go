@@ -17,14 +17,14 @@ func healthSettings(collectors, steps int, email string) *m.MonitorHealthSetting
 	return hs
 }
 
-func httpMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
+func httpMonitor(collectorIds []int64, collectors, steps int, host, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
 		EndpointId:    1,
 		MonitorTypeId: 1,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
 		Settings: []*m.MonitorSettingDTO{
-			&m.MonitorSettingDTO{Variable: "host", Value: "localhost"},
+			&m.MonitorSettingDTO{Variable: "host", Value: host},
 			&m.MonitorSettingDTO{Variable: "port", Value: "80"},
 			&m.MonitorSettingDTO{Variable: "path", Value: "/"},
 			&m.MonitorSettingDTO{Variable: "method", Value: "GET"},
@@ -37,14 +37,14 @@ func httpMonitor(collectorIds []int64, collectors, steps int, email string) *m.A
 	}
 }
 
-func pingMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
+func pingMonitor(collectorIds []int64, collectors, steps int, host, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
 		EndpointId:    1,
 		MonitorTypeId: 3,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
 		Settings: []*m.MonitorSettingDTO{
-			&m.MonitorSettingDTO{Variable: "hostname", Value: "localhost"},
+			&m.MonitorSettingDTO{Variable: "hostname", Value: host},
 		},
 		HealthSettings: healthSettings(collectors, steps, email),
 		Frequency:      10,
@@ -52,14 +52,14 @@ func pingMonitor(collectorIds []int64, collectors, steps int, email string) *m.A
 	}
 }
 
-func dnsMonitor(collectorIds []int64, collectors, steps int, email string) *m.AddMonitorCommand {
+func dnsMonitor(collectorIds []int64, collectors, steps int, host, email string) *m.AddMonitorCommand {
 	return &m.AddMonitorCommand{
 		EndpointId:    1,
 		MonitorTypeId: 4,
 		CollectorIds:  collectorIds,
 		CollectorTags: make([]string, 0),
 		Settings: []*m.MonitorSettingDTO{
-			&m.MonitorSettingDTO{Variable: "name", Value: "localhost"},
+			&m.MonitorSettingDTO{Variable: "name", Value: host},
 			&m.MonitorSettingDTO{Variable: "type", Value: "A"},
 			&m.MonitorSettingDTO{Variable: "server", Value: "8.8.8.8"},
 			&m.MonitorSettingDTO{Variable: "port", Value: "53"},
