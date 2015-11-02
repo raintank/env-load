@@ -8,6 +8,7 @@ import (
 )
 
 var orgs = flag.Int("orgs", 100, "number of orgs to create")
+var delay = flag.Int("delay", 0, "delay in seconds between creation of each endpoint.")
 var email = flag.String("email", "", "email addresses for alerting emails. empty means notifications disabled")
 var host = flag.String("host", "http://localhost/", "https://which.raintank.instance/")
 var monHost = flag.String("monhost", "localhost", "which hostname to monitor")

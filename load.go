@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/grafana/grafana-api-golang-client"
 	"github.com/grafana/grafana/pkg/api/dtos"
@@ -64,6 +65,7 @@ func load(client *gapi.Client, mail string) {
 			if err = subClient.NewEndpoint(settings); err != nil {
 				log.Fatal(err)
 			}
+			time.Sleep(time.Duration(*delay) * time.Second)
 		}
 	}
 }
