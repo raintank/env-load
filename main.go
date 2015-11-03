@@ -27,10 +27,11 @@ func main() {
 	if *auth == "" {
 		log.Fatal("need an authentication string")
 	}
-	client, err := gapi.New(*auth, *host)
+	c, err := gapi.New(*auth, *host)
 	if err != nil {
 		log.Fatal(err)
 	}
+	client := client{c}
 
 	op := args[0]
 	switch op {
