@@ -29,15 +29,6 @@ func (c client) publicCollectorIds() []int64 {
 	return collectorIds
 }
 
-func (c client) lastKnown() int {
-	users := c.users()
-	last := -1
-	for _, usr := range users {
-		last, _ = strconv.Atoi(strings.Replace(usr.Name, "fake_user_", "", 1))
-	}
-	return last
-}
-
 func (c client) users() []user {
 	users, err := c.Client.Users()
 	if err != nil {

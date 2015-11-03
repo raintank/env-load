@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) == 0 {
-		log.Fatal("must have either 'load', 'clean' or 'converge' operation argument")
+		log.Fatal("must have either 'load' or 'clean' operation argument")
 	}
 
 	if *host == "" {
@@ -42,8 +42,6 @@ func main() {
 		load(client, *email)
 	case "clean":
 		clean(client)
-	case "converge":
-		converge(client, *email)
 	case "status":
 		status(client)
 	default:
