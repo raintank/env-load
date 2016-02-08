@@ -30,6 +30,7 @@ func httpMonitor(collectorIds []int64, collectors, steps int, host, email string
 			&m.MonitorSettingDTO{Variable: "method", Value: "GET"},
 			&m.MonitorSettingDTO{Variable: "expectRegex", Value: ""},
 			&m.MonitorSettingDTO{Variable: "headers", Value: "Accept-Encoding: gzip\nUser-Agent: raintank collector\n"},
+			&m.MonitorSettingDTO{Variable: "timeout", Value: "3" },
 		},
 		HealthSettings: healthSettings(collectors, steps, email),
 		Frequency:      10,
@@ -45,6 +46,7 @@ func pingMonitor(collectorIds []int64, collectors, steps int, host, email string
 		CollectorTags: make([]string, 0),
 		Settings: []*m.MonitorSettingDTO{
 			&m.MonitorSettingDTO{Variable: "hostname", Value: host},
+			&m.MonitorSettingDTO{Variable: "timeout", Value: "3" },
 		},
 		HealthSettings: healthSettings(collectors, steps, email),
 		Frequency:      10,
@@ -64,6 +66,7 @@ func dnsMonitor(collectorIds []int64, collectors, steps int, host, email string)
 			&m.MonitorSettingDTO{Variable: "server", Value: "8.8.8.8"},
 			&m.MonitorSettingDTO{Variable: "port", Value: "53"},
 			&m.MonitorSettingDTO{Variable: "protocol", Value: "udp"},
+			&m.MonitorSettingDTO{Variable: "timeout", Value: "3" },
 		},
 		HealthSettings: healthSettings(collectors, steps, email),
 		Frequency:      10,
